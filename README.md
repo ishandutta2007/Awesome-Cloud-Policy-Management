@@ -1,237 +1,132 @@
-# Awesome-Cloud-Policy-Management
-
-## Top Cloud Policy Management Platforms Ecosystem
-
-
-
-**Curated List of SaaS Products & Open-Source GitHub Projects**
-
-*Focused on Policy-as-Code, Cloud Guardrails, IaC Security & Runtime Enforcement*
-
-**Last updated: September 2026**
-
-
-
-This repository tracks notable **SaaS platforms** and **open-source projects** for **Cloud Policy Management**. These tools help platform and security teams define, enforce, and audit policies across cloud accounts, Kubernetes clusters, and Infrastructure as Code (IaC)—replacing ad-hoc scripts and manual reviews with declarative, version-controlled governance.
-
-
-
-**Examples** include Cloud Custodian, Stacklet, CloudQuery, Fugue (Snyk), Snyk IaC, HashiCorp Sentinel, Styra DAS, OPA Gatekeeper, Prisma Cloud Policies, and Azure Policy (the category leaders).
-
-
-
-**Open-source emphasis**: This section is heavily expanded with every major active project for self-hosting, custom policy authoring, and transparent enforcement—ideal for platform teams that need full control over their guardrails without per-resource SaaS fees or vendor lock-in.
-
-
-
-Contributions welcome! Open a PR to add/update entries. Keep descriptions factual and link to official sites.
-
-
-
-## Table of Contents
-
-
-
-- [SaaS/Hosted Platforms](#saas-hosted-platforms)
-
-- [Open-Source GitHub Projects](#open-source-github-projects)
-
-- [How to Contribute](#how-to-contribute)
-
-- [Disclaimer](#disclaimer)
-
-
-
-## SaaS/Hosted Platforms
-
-
-
-- **[Stacklet](https://stacklet.ai/)**
-
-  Commercial platform built by the core creators of Cloud Custodian. Provides fully automated cloud governance with a policy engine spanning **IaC and runtime** in a single language . Features **Terraform Provider for Stacklet** ("Stacklet as Code") enabling declarative management of policy repositories, collections, bindings, and SSO groups . Jun0 AI agent accelerates policy creation and queries. Over **1,500 policies** and **500+ cloud resource types** out of the box . Survey found 62% of organizations report cloud waste mistakes costing **$25,000+/month** .
-
-
-
-- **[Fugue (Snyk)](https://www.snyk.io/)**
-
-  Cloud security posture management platform acquired by Snyk (2022). Features a **unified policy engine** that connects cloud posture back to configuration code—**one policy engine for IaC AND runtime** . Security checks embedded in git workflows and CI/CD with automated developer feedback. Goal: "complete journey from code to cloud" .
-
-
-
-- **[Snyk IaC](https://snyk.io/product/infrastructure-as-code-security/)**
-
-  IaC security scanning within the Snyk platform. Detects misconfigurations in **Terraform, Kubernetes, CloudFormation, and Azure Resource Manager** templates . Available via **JetBrains IDE plugin** (in-line issue highlighting, severity categorization, free tier) and CLI. Part of Snyk's broader developer-focused security platform covering open source, code, containers, and IaC .
-
-
-
-- **[HashiCorp Sentinel](https://www.hashicorp.com/sentinel)**
-
-  Policy-as-code framework embedded in **HCP Terraform and Terraform Enterprise** (paid tiers) . Policy language: **Sentinel** (HashiCorp-proprietary). Enforcement point: **plan-apply gate**. Best for organizations standardized on Terraform . **Important note**: Paid HCP Terraform/Terraform Enterprise tiers also support **OPA**, so being a Terraform shop does not lock you into Sentinel . Sentinel policy sets can be applied at **project level** for app team-level governance .
-
-
-
-- **[Styra DAS](https://www.styra.com/)**
-
-  Enterprise-grade **control plane built on top of open-source OPA**, created by Styra . Provides authorization through **policy lifecycle management** across cloud-native ecosystem. Centralized application for managing policy across **Kubernetes, Terraform, microservices, gateways, meshes, and Application Entitlements**. Single policy language: **Rego** . **Self-hosted Styra DAS** available (v0.17.0, June 2025) with OPA upgraded to v1.4.2 . Custom System type works with any OPA-compatible integration point .
-
-
-
-- **[Prisma Cloud Policies](https://www.paloaltonetworks.com/prisma/cloud)**
-
-  Policy management within Palo Alto's CNAPP. Provides cloud security posture policies across AWS, Azure, GCP, and Kubernetes with policy-as-code capabilities.
-
-
-
-- **[Azure Policy](https://azure.microsoft.com/en-us/products/azure-policy)**
-
-  Native Azure policy service enforcing effects like **audit, deny, deployIfNotExists, and modify** at the resource provider level . Part of the "outer wall" of cloud account controls that "keeps working when the pipeline is skipped" . AWS equivalent: **Service Control Policies (SCPs)** and IAM permission boundaries. GCP equivalent: **Organization Policy Service** .
-
-
-
-## Open-Source GitHub Projects
-
-
-
-### Cloud Account Governance
-
-
-
-- **[Cloud Custodian](https://github.com/cloud-custodian/cloud-custodian)**
-
-  **The foundational open-source cloud governance engine.** CNCF Incubating Project under **Apache 2.0** license . **YAML-based DSL** for defining rules that filter, tag, and apply actions to cloud resources. Supports **AWS, Azure, and GCP** (Kubernetes, Tencent Cloud, OpenStack in beta) . **Real-time compliance**: natively integrates with cloud provider control planes and remediates in real-time . **Cost management**: off-hours scheduling, garbage collection of unused resources, utilization-based tagging . **Terraform integration** (Alpha) for "Governance as Code" from the start . Runs locally, on instance, or **serverless in AWS Lambda** . Powers Stacklet's commercial platform .
-
-
-
-### Kubernetes Admission Control
-
-
-
-- **[Open Policy Agent (OPA)](https://github.com/open-policy-agent/opa)**
-
-  **CNCF graduated (January 2021) general-purpose policy engine** . **Rego** policy language for reasoning about structured documents. Can be embedded anywhere—Kubernetes admission, CI/CD, APIs, gateways, and more . **OPA Gatekeeper** wraps OPA in a Kubernetes webhook, reusing Rego skills . One policy language across everything: IaC, Kubernetes, APIs, CI .
-
-
-
-- **[Kyverno](https://github.com/kyverno/kyverno)**
-
-  **CNCF graduated Kubernetes-native policy engine** . Uses **YAML** policies (no Rego required). Enforcement: **validate, mutate, generate, delete, image-validate**. **Kyverno 1.16** (November 2025) introduces **CEL policy types** (beta) with namespaced variants for multi-tenancy, fine-grained **image-based exceptions**, and comprehensive **native observability** with Prometheus histograms and Kubernetes events . **Kyverno SDK** debuting for ecosystem integrations . Best for Kubernetes teams who don't want to learn Rego .
-
-
-
-- **[Kubewarden](https://github.com/kubewarden)**
-
-  **CNCF project** using **WebAssembly (WASM)** for Kubernetes admission policies . Policies can be written in **Rego, Rust, Go, and more**, compiled to portable WASM modules. Unique for policy portability across environments .
-
-
-
-- **[Kubernetes ValidatingAdmissionPolicy](https://kubernetes.io/docs/reference/access-authn-authz/validating-admission-policy/)**
-
-  **In-tree Kubernetes admission policy using CEL**, GA since **v1.30** . Runs in-process in the API server—**no external webhook dependency** and no failure point . Best for simple field-level rules where installing an external engine is unnecessary .
-
-
-
-### IaC & Configuration Policy
-
-
-
-- **[Conftest](https://github.com/open-policy-agent/conftest)**
-
-  Open-source tool for testing **configuration files (YAML/JSON/HCL) against Rego policies** . Enforcement point: **PR / CI**. Ideal for pre-commit and CI pipeline policy testing .
-
-
-
-- **[Checkov](https://github.com/bridgecrewio/checkov)**
-
-  **Open-source static analysis tool for Infrastructure as Code** with **750+ built-in policies** . Language: **Python / YAML checks**. Scope: **Terraform, CloudFormation, Kubernetes, Helm, ARM** . **Deeper Terraform graph analysis** than alternatives. Available as **JetBrains IDE plugin** with real-time scan results and inline fix suggestions . **AWS CDK validator plugin** available .
-
-
-
-- **[Trivy](https://github.com/aquasecurity/trivy)**
-
-  **Open-source (Aqua-backed) comprehensive scanner** . Language: **Rego (built-in checks)**. Scope: **Images, IaC, secrets, SBOM**. Enforcement: **PR / CI / registry** . Adds container image, filesystem, secret, license, and SBOM scanning in one binary . Many teams run **Checkov for Terraform depth** and **Trivy for images** .
-
-
-
-- **[Pulumi CrossGuard](https://github.com/pulumi/crossguard)**
-
-  **Open-source (Pulumi) policy-as-code framework** . Languages: **TypeScript, JavaScript, Python, Rego**. Scope: **Pulumi programs**. Enforcement: **preview and up** . Best for teams using Pulumi .
-
-
-
-### Cloud Asset Inventory & Posture
-
-
-
-- **[CloudQuery](https://github.com/cloudquery/cloudquery)**
-
-  **Open-source data movement framework** for cloud asset inventory and CSPM . Syncs data from any source to any destination. **First-class support for AWS, GCP, and Azure** . Open source framework with SDK for Go, Python, Java, JavaScript integrations . Use as CSPM to monitor and enforce security policies across cloud infrastructure .
-
-
-
-- **[Prowler](https://github.com/prowler-cloud/prowler)**
-
-  **Open-source scanning to validate and extend Microsoft Defender for Cloud** (and standalone) . Supports **Azure, AWS, GCP, and Kubernetes**. Custom policy creation, CLI-first scriptable, exportable detections (JSON, CSV, JUnit, HTML) . **No vendor lock-in**—checks are inspectable, modifiable, and versionable .
-
-
-
-- **[Kubescape](https://github.com/kubescape/kubescape)**
-
-  **CNCF project for Kubernetes security posture** . **Kubescape 4.0** (March 2026) GA's **Runtime Threat Detection** with **CEL-based rules** and Kubernetes CRDs for rules/bindings . **Kubescape Storage** GA using Kubernetes Aggregated API for SBOMs and vulnerability manifests . **AI-era security**: KAgent-native plug-in for AI agents to scan clusters; security posture scanning for KAgent itself (42 config points, 15 Rego controls) .
-
-
-
-### Additional Strong Open-Source Options
-
-
-
-- **Cloud Governance**: **Cloud Custodian** (CNCF Incubating, YAML DSL, 500+ resource types) .
-
-- **Kubernetes Admission**: **OPA/Gatekeeper** (Rego, CNCF graduated), **Kyverno** (YAML, CEL, CNCF graduated), **Kubewarden** (WASM portable), **ValidatingAdmissionPolicy** (in-tree CEL) .
-
-- **IaC Security**: **Checkov** (750+ policies, Terraform depth), **Trivy** (multi-scanner), **Conftest** (Rego config testing), **Pulumi CrossGuard** (Pulumi-native) .
-
-- **CSPM/Inventory**: **CloudQuery** (asset inventory), **Prowler** (multi-cloud posture), **Kubescape** (K8s posture + runtime) .
-
-
-
-**Frameworks for building custom systems**: Combine **Cloud Custodian** for cloud account governance and remediation, **OPA/Gatekeeper** or **Kyverno** for Kubernetes admission control, **Checkov** for IaC scanning in CI, and **Prowler** or **CloudQuery** for multi-cloud posture visibility. Add **Prometheus + Grafana** for policy execution observability.
-
-
-
-## How to Contribute
-
-
-
-1. Fork the repo.
-
-2. Add/edit entries in `README.md` (follow existing format).
-
-3. Include: name, link, 1–2 sentence description, and whether it's SaaS or open-source.
-
-4. Submit PR with a short explanation.
-
-
-
-Star the repo if you find it useful!
-
-
-
-## Disclaimer
-
-
-
-- This is a **community-curated** list — not exhaustive and not an endorsement.
-
-- Cloud policy management platforms handle sensitive infrastructure and compliance data; ensure proper access controls and adherence to organizational governance requirements.
-
-- **Open-source reality**: The open-source ecosystem for cloud policy management is **mature and production-ready**. **Cloud Custodian** is the foundational cloud governance engine (CNCF Incubating, powers Stacklet) . **OPA** and **Kyverno** are both **CNCF graduated** for Kubernetes admission control . **Checkov** provides 750+ IaC policies with Terraform graph depth . **Kubescape 4.0** brings GA runtime threat detection with CEL rules . For **fully managed cloud governance** with AI acceleration and enterprise support, Stacklet remains the commercial option built by Cloud Custodian's creators .
-
-
+<p align="center">
+  <img src="assets/banner.svg" alt="Awesome Cloud Policy Management Banner" width="100%"/>
+</p>
+
+# ☁️🔒 Awesome Cloud Policy Management
+
+<p align="center">
+  <a href="https://github.com/ishandutta2007/Awesome-Awesome-Awesome"><img src="https://img.shields.io/badge/Awesome-%E2%9C%94-blueviolet?style=flat-square&logo=github" alt="Awesome"/></a><a href="https://discord.gg/jc4xtF58Ve"><img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord" /></a>
+  <a href="https://github.com/ishandutta2007/Awesome-Cloud-Policy-Management"><img src="https://img.shields.io/github/stars/ishandutta2007/Awesome-Cloud-Policy-Management?style=flat-square" alt="GitHub stars"/></a>
+  <a href="https://github.com/ishandutta2007/Awesome-Cloud-Policy-Management/network/members"><img src="https://img.shields.io/github/forks/ishandutta2007/Awesome-Cloud-Policy-Management?style=flat-square" alt="GitHub forks"/></a>
+  <a href="https://github.com/ishandutta2007/Awesome-Cloud-Policy-Management/blob/main/LICENSE"><img src="https://img.shields.io/github/license/ishandutta2007/Awesome-Cloud-Policy-Management?style=flat-square" alt="License"/></a>
+  <a href="https://github.com/ishandutta2007"><img alt="GitHub followers" src="https://img.shields.io/github/followers/ishandutta2007?label=Follow" /></a>
+</p>
+
+> **A curated list of Cloud Policy Management SaaS platforms, Policy-as-Code engines, Cloud Guardrails, IaC Security, and Runtime Enforcement frameworks.** 🛡️⚡
 
 ---
 
+## 📑 Table of Contents
 
+- [🌐 SaaS / Hosted Platforms](#-saas--hosted-platforms)
+- [🔓 Open-Source GitHub Projects](#-open-source-github-projects)
+  - [🛡️ Cloud Account Governance](#️-cloud-account-governance)
+  - [☸️ Kubernetes Admission Control & Posture](#️-kubernetes-admission-control--posture)
+  - [🏗️ IaC & Configuration Policy Scanning](#️-iac--configuration-policy-scanning)
+  - [📊 Cloud Asset Inventory & CSPM](#-cloud-asset-inventory--cspm)
+- [📈 Star History](#-star-history)
+- [💖 Support & Contributing](#-support--contributing)
+- [⚖️ Disclaimer](#️-disclaimer)
 
-**Made for platform engineers, cloud security architects, DevOps leads, and governance teams.**
+---
 
-Let's make cloud policy management more open, transparent, and enforceable.
+## 🌐 SaaS / Hosted Platforms
+
+> 📊 **Market Overview & Size**: The global Cloud Security Posture Management (CSPM) and Policy-as-Code market size is estimated at **$5.8 Billion (2026)** and is projected to surpass **$12.4 Billion by 2030**, growing at a CAGR of ~21%.
+> 
+> 🧩 **Market Structure**: The sector is **moderately fragmented**, bridging hyper-scaler native services (Microsoft, AWS, GCP), enterprise cybersecurity behemoths (Palo Alto Networks, IBM), and specialized venture-backed platforms (Snyk, Stacklet, Styra).
+
+| Platform | Description & Key Features | Pricing Tier | Free Tier / Trial Limits | Company Size (Market Cap / Valuation / ARR) |
+| :--- | :--- | :--- | :--- | :--- |
+| **[Microsoft Azure Policy](https://azure.microsoft.com/en-us/products/azure-policy)** 🔷 | Native Azure policy engine enforcing audit, deny, and remediation at resource provider level. | **$0 / month** (Included with Azure) | **Always Free** for native Azure resources. 30-Day Free Trial ($200 credits). | **$3.80 Trillion** *(Public Market Cap: MSFT)* |
+| **[Palo Alto Prisma Cloud](https://www.paloaltonetworks.com/prisma/cloud)** 🛡️ | Enterprise CNAPP platform with multi-cloud policy enforcement and IaC security. | **$90 / credit / year** (Starting tier) | **30-Day Free Trial** with full sandbox capabilities. | **$285.00 Billion** *(Public Market Cap: PANW)* |
+| **[HashiCorp Sentinel](https://www.hashicorp.com/sentinel)** 🏗️ | Embedded policy-as-code gatekeeper for HCP Terraform and Terraform Enterprise. | **$0.10 / RUM / month** (Essentials starting tier) | **500 Managed Resources Free forever** (Single concurrent run limit). | **$7.00 Billion** *(Acquired by IBM / Prev Market Cap)* |
+| **[Snyk IaC](https://snyk.io/product/infrastructure-as-code-security/)** 🐶 | Developer-first IaC misconfiguration scanner for Terraform, K8s, ARM, and CloudFormation. | **$25 / dev / month** (Team tier) | **Free Forever** (Limit: 300 IaC scans/mo & 400 Open Source scans/mo). | **$7.40 Billion** *(Valuation / ~$300M ARR)* |
+| **[Stacklet](https://stacklet.ai/)** ⚡ | Commercial cloud governance platform built by core creators of Cloud Custodian. | **$12,000 / year** (Starting commercial tier) | **14-Day Free Trial** available via AWS Marketplace / Sales. | **$75.00 Million** *(Estimated Valuation / $36.5M Raised)* |
+| **[Styra DAS](https://www.styra.com/)** 📜 | Declarative authorization control plane built on Open Policy Agent (OPA). | **$250 / month** (Historical Team tier) | **Free Edition** (up to 3 clusters / 10 systems). *(Product Sunset 2025)* | **$67.50 Million** *(Total VC Funding Raised)* |
+
+---
+
+## 🔓 Open-Source GitHub Projects
+
+The open-source ecosystem for Cloud Policy Management is mature, production-ready, and widely adopted across enterprise platform teams.
+
+---
+
+### 🛡️ Cloud Account Governance
+
+- **[Cloud Custodian](https://github.com/cloud-custodian/cloud-custodian)** <a href="https://github.com/cloud-custodian/cloud-custodian/stargazers"><img src="https://img.shields.io/github/stars/cloud-custodian/cloud-custodian?style=social&color=white" alt="Cloud Custodian Stars"/></a>  
+  *CNCF Incubating YAML-based stateless engine for real-time cloud governance, compliance, and cost optimization across AWS, Azure, and GCP.*
+
+---
+
+### ☸️ Kubernetes Admission Control & Posture
+
+- **[Open Policy Agent (OPA)](https://github.com/open-policy-agent/opa)** <a href="https://github.com/open-policy-agent/opa/stargazers"><img src="https://img.shields.io/github/stars/open-policy-agent/opa?style=social&color=white" alt="OPA Stars"/></a>  
+  *CNCF Graduated general-purpose policy engine using Rego for unified policy enforcement across Kubernetes, microservices, and CI/CD.*
+- **[Infracost](https://github.com/infracost/infracost)** <a href="https://github.com/infracost/infracost/stargazers"><img src="https://img.shields.io/github/stars/infracost/infracost?style=social&color=white" alt="Infracost Stars"/></a>  
+  *Cloud cost policies and shift-left cost guardrails for Terraform in pull requests.*
+- **[Kubescape](https://github.com/kubescape/kubescape)** <a href="https://github.com/kubescape/kubescape/stargazers"><img src="https://img.shields.io/github/stars/kubescape/kubescape?style=social&color=white" alt="Kubescape Stars"/></a>  
+  *CNCF K8s security posture & runtime threat detection platform powered by CEL and eBPF.*
+- **[Kyverno](https://github.com/kyverno/kyverno)** <a href="https://github.com/kyverno/kyverno/stargazers"><img src="https://img.shields.io/github/stars/kyverno/kyverno?style=social&color=white" alt="Kyverno Stars"/></a>  
+  *CNCF Graduated Kubernetes-native policy engine using YAML DSL and CEL rules for validation, mutation, and generation.*
+- **[OPA Gatekeeper](https://github.com/open-policy-agent/gatekeeper)** <a href="https://github.com/open-policy-agent/gatekeeper/stargazers"><img src="https://img.shields.io/github/stars/open-policy-agent/gatekeeper?style=social&color=white" alt="Gatekeeper Stars"/></a>  
+  *Customizable admission control webhook for Kubernetes integrating OPA and CRDs.*
+- **[Kubewarden](https://github.com/kubewarden/adm-controller)** <a href="https://github.com/kubewarden/adm-controller/stargazers"><img src="https://img.shields.io/github/stars/kubewarden/adm-controller?style=social&color=white" alt="Kubewarden Stars"/></a>  
+  *CNCF WebAssembly (WASM) powered admission controller allowing policy authoring in Rust, Go, or Rego.*
+
+---
+
+### 🏗️ IaC & Configuration Policy Scanning
+
+- **[Trivy](https://github.com/aquasecurity/trivy)** <a href="https://github.com/aquasecurity/trivy/stargazers"><img src="https://img.shields.io/github/stars/aquasecurity/trivy?style=social&color=white" alt="Trivy Stars"/></a>  
+  *Comprehensive security scanner for container images, IaC misconfigurations, secrets, and SBOMs.*
+- **[Checkov](https://github.com/bridgecrewio/checkov)** <a href="https://github.com/bridgecrewio/checkov/stargazers"><img src="https://img.shields.io/github/stars/bridgecrewio/checkov?style=social&color=white" alt="Checkov Stars"/></a>  
+  *Static code analysis tool for Infrastructure-as-Code (Terraform, CloudFormation, K8s, ARM, Helm) with 750+ built-in policies.*
+- **[Terrascan](https://github.com/tenable/terrascan)** <a href="https://github.com/tenable/terrascan/stargazers"><img src="https://img.shields.io/github/stars/tenable/terrascan?style=social&color=white" alt="Terrascan Stars"/></a>  
+  *Static code analyzer for Infrastructure as Code with 500+ out-of-the-box policies written in OPA/Rego.*
+- **[Oso](https://github.com/osohq/oso)** <a href="https://github.com/osohq/oso/stargazers"><img src="https://img.shields.io/github/stars/osohq/oso?style=social&color=white" alt="Oso Stars"/></a>  
+  *Open-source authorization engine and declarative policy language (Polar) for application security.*
+- **[Starlark](https://github.com/google/starlark-go)** <a href="https://github.com/google/starlark-go/stargazers"><img src="https://img.shields.io/github/stars/google/starlark-go?style=social&color=white" alt="Starlark Stars"/></a>  
+  *Python-like deterministic configuration and policy execution language created by Google.*
+- **[KICS](https://github.com/Checkmarx/kics)** <a href="https://github.com/Checkmarx/kics/stargazers"><img src="https://img.shields.io/github/stars/Checkmarx/kics?style=social&color=white" alt="KICS Stars"/></a>  
+  *Keeping Infrastructure as Code Secure - static analysis for IaC templates with thousands of queries.*
+- **[Conftest](https://github.com/open-policy-agent/conftest)** <a href="https://github.com/open-policy-agent/conftest/stargazers"><img src="https://img.shields.io/github/stars/open-policy-agent/conftest?style=social&color=white" alt="Conftest Stars"/></a>  
+  *Utility for running Rego policies against arbitrary configuration files (YAML, JSON, HCL, TOML).*
+- **[Pulumi Policy (CrossGuard)](https://github.com/pulumi/pulumi-policy)** <a href="https://github.com/pulumi/pulumi-policy/stargazers"><img src="https://img.shields.io/github/stars/pulumi/pulumi-policy?style=social&color=white" alt="Pulumi Policy Stars"/></a>  
+  *Policy-as-code framework for Pulumi enabling guardrails in TypeScript, Python, and Rego.*
+
+---
+
+### 📊 Cloud Asset Inventory & CSPM
+
+- **[Prowler](https://github.com/prowler-cloud/prowler)** <a href="https://github.com/prowler-cloud/prowler/stargazers"><img src="https://img.shields.io/github/stars/prowler-cloud/prowler?style=social&color=white" alt="Prowler Stars"/></a>  
+  *Multi-cloud security assessment tool for AWS, Azure, GCP, and Kubernetes aligned with CIS benchmarks.*
+- **[CloudQuery](https://github.com/cloudquery/cloudquery)** <a href="https://github.com/cloudquery/cloudquery/stargazers"><img src="https://img.shields.io/github/stars/cloudquery/cloudquery?style=social&color=white" alt="CloudQuery Stars"/></a>  
+  *Open-source high-performance data integration framework for cloud assets into SQL databases for policy reporting.*
+- **[StackRox](https://github.com/stackrox/stackrox)** <a href="https://github.com/stackrox/stackrox/stargazers"><img src="https://img.shields.io/github/stars/stackrox/stackrox?style=social&color=white" alt="StackRox Stars"/></a>  
+  *Kubernetes-native security platform for policy enforcement, vulnerability management, and threat detection.*
+
+---
+
+## 📈 Star History
+
+[![Star History Chart](https://star-history.dera.page/svg?repos=ishandutta2007/Awesome-Cloud-Policy-Management&type=date&legend=top-left)](https://star-history.dera.page/#ishandutta2007/Awesome-Cloud-Policy-Management&type=date&legend=top-left)
+
+---
+
+## 💖 Support & Contributing
+
+Contributions are warmly welcome! If you'd like to add a new open-source policy tool or SaaS platform, feel free to open a Pull Request.
+
+- ⭐ **Star this repository** to show your support and help others discover it!
+- 🍴 **Fork the repo** to contribute new tools and guardrail frameworks.
+- 📢 **Share with your team** and cloud security colleagues.
+- ☕ **Sponsor the Maintainer**: If you find this list helpful, consider supporting via the [GitHub Sponsor Dashboard](https://github.com/sponsors/ishandutta2007).
+
+---
+
+## ⚖️ Disclaimer
+
+- This list is **community-curated** for educational and research purposes.
+- Product names, logos, and brands belong to their respective owners.
